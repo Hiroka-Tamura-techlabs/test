@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 
 
 a=pd.read_csv('mock_store_escalation.csv')
-a1=a[(a['the_store_id']=='23476') &(a['the_store_id']=='7360') ]
+a1=a[(a['the_store_id']==23476) |(a['the_store_id']==7350)]
 a1['meal_time'].replace(['breakfast','lunch','snack','dinner','evening','late_night'],
                         [0,1,2,3,4,5], inplace=True)
 
