@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-
+import plotly.express as px
 
 
 
@@ -14,8 +14,8 @@ a1['meal_time'].replace(['breakfast','lunch','snack','dinner','evening','late_ni
 
 fig = go.Figure(data=
     go.Parcoords(
-        line_color='blue',
-        #line = dict(color = a1['the_store_id']),
+        #line_color='blue',
+        line = dict(color = a1['the_store_id']),
         dimensions = list([
             dict(range = [0,6],
                  tickvals = [0,1,2,3,4,5],
@@ -27,9 +27,15 @@ fig = go.Figure(data=
     )
 )
 
-st.plotly_chart(fig)
+fig4 = px.parallel_categories(a, dimensions=['meal_time', 'release_branch', 'escalated_ind'],
+                color="size", color_continuous_scale=px.colors.sequential.Inferno,
+                labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'})
 
-import plotly.express as px
+
+st.plotly_chart(fig)
+st.plotly_chart(fig4)
+
+
 iris = px.data.iris()
 fig2 = px.parallel_coordinates(iris, color="species_id",
                               dimensions=['sepal_width', 'sepal_length', 'petal_width',
