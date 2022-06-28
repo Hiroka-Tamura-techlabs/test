@@ -28,7 +28,7 @@ fig = go.Figure(data=
 )
 
 fig4 = px.parallel_categories(a, dimensions=['meal_time', 'release_branch', 'escalated_ind'],
-                color="size", color_continuous_scale=px.colors.sequential.Inferno)
+                labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'})
 
 
 st.plotly_chart(fig)
