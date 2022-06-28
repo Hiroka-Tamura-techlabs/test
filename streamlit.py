@@ -39,7 +39,9 @@ store1 = st.sidebar.selectbox("Select store 1:",slist)
 store2 = st.sidebar.selectbox("Select store 2:",slist)
 fig5= px.parallel_categories(a[(a['the_store_id']==store1) | (a['the_store_id']==store2)], 
                              dimensions=['meal_time', 'release_branch', 'escalated_ind'],
-                             labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'})
+                             labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'},
+                             color='the_store_id', color_discrete_map={store1: 'lightcyan', 
+                                                   store2: 'royalblue'})
 
 st.plotly_chart(fig5)
 
