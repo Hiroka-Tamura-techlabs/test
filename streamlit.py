@@ -28,6 +28,7 @@ fig = go.Figure(data=
 )
 
 fig4 = px.parallel_categories(a, dimensions=['meal_time', 'release_branch', 'escalated_ind'],
+                              color='the_store_id',
                 labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'})
 
 
