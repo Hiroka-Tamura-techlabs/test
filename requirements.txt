@@ -1,6 +1,6 @@
 pandas
 plotly
 sqlalchemy
-psycopg2
+psycopg2-binary
 redshift-sqlalchemy
 streamlit == 1.10.0
