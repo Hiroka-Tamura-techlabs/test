@@ -3,10 +3,14 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+from sqlalchemy import create_engine
+from sqlalchemy import text
+redshift_url = "{d}+{driver}://{u}:{p}@{h}:{port}/{db}".format(d='redshift',driver='psycopg2',u=username,p=password,h=host,port=port,db=dbname)
+redshift_eng = create_engine(redshift_url)
+a = pd.read_sql_query(""" select the_store_id,business_date,meal_time,release_branch,escalation_type from pa_prod.quicksight_golden_arches ga
+""",con=redshift_eng)
 
-
-
-a=pd.read_csv('mock_store_escalation.csv')
+#a=pd.read_csv('mock_store_escalation.csv')
 a1=a[(a['the_store_id']==23476) |(a['the_store_id']==7350)]
 a1['meal_time'].replace(['breakfast','lunch','snack','dinner','evening','late_night'],
                         [0,1,2,3,4,5], inplace=True)
@@ -38,11 +42,10 @@ st.plotly_chart(fig4)
 slist = a['the_store_id_cat'].unique()
 store1 = st.sidebar.selectbox("Select store 1:",slist)
 store2 = st.sidebar.selectbox("Select store 2:",slist)
-store_color_map = {t: i for i, t in enumerate(slist)}
 fig5= px.parallel_categories(a[(a['the_store_id_cat']==store1) | (a['the_store_id_cat']==store2)], 
                              dimensions=['meal_time', 'release_branch', 'escalated_ind'],
                              labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'},
-                             color=a[(a['the_store_id_cat']==store1) | (a['the_store_id_cat']==store2)]['the_store_id_cat'].replace(store_color_map))
+                             color='the_store_id')
 
 st.plotly_chart(fig5)
 
