@@ -42,7 +42,7 @@ fig5= px.parallel_categories(a[(a['the_store_id']==store1) | a[(a['the_store_id'
                               color='the_store_id',
                                labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'})
 
-
+st.plotly_chart(fig5)
 
 
 
