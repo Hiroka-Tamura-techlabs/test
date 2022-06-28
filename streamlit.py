@@ -14,8 +14,8 @@ a1['meal_time'].replace(['breakfast','lunch','snack','dinner','evening','late_ni
 
 fig = go.Figure(data=
     go.Parcoords(
-        #line_color='blue',
-        line = dict(color = a1['the_store_id']),
+        line_color='blue',
+        #line = dict(color = a1['the_store_id']),
         dimensions = list([
             dict(range = [0,6],
                  tickvals = [0,1,2,3,4,5],
