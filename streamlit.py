@@ -41,7 +41,7 @@ fig2 = px.parallel_coordinates(iris, color="species_id",
                                           'petal_length'],
                               color_continuous_scale=px.colors.diverging.Tealrose,
                               color_continuous_midpoint=2)
-st.plotly_chart(fig2)
+#st.plotly_chart(fig2)
 
 df = pd.read_csv("https://raw.githubusercontent.com/bcdunbar/datasets/master/iris.csv")
 
@@ -62,4 +62,4 @@ fig3 = go.Figure(data=
         ])
     )
 )
-st.plotly_chart(fig3)
+#st.plotly_chart(fig3)
