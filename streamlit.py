@@ -26,7 +26,7 @@ fig = go.Figure(data=
         ])
     )
 )
-a['the_store_id'] = a['the_store_id'].astype('str')
+a['the_store_id_cat'] = a['the_store_id'].astype('str')
 fig4 = px.parallel_categories(a, dimensions=['meal_time', 'release_branch', 'escalated_ind'],
                 labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'})
 
@@ -34,10 +34,10 @@ fig4 = px.parallel_categories(a, dimensions=['meal_time', 'release_branch', 'esc
 st.plotly_chart(fig)
 st.plotly_chart(fig4)
 
-slist = a['the_store_id'].unique()
+slist = a['the_store_id_cat'].unique()
 store1 = st.sidebar.selectbox("Select store 1:",slist)
 store2 = st.sidebar.selectbox("Select store 2:",slist)
-fig5= px.parallel_categories(a[(a['the_store_id']==store1) | (a['the_store_id']==store2)], 
+fig5= px.parallel_categories(a[(a['the_store_id_cat']==store1) | (a['the_store_id_cat']==store2)], 
                              dimensions=['meal_time', 'release_branch', 'escalated_ind'],
                              labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'},
                              color='the_store_id')
