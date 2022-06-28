@@ -26,7 +26,7 @@ fig = go.Figure(data=
         ])
     )
 )
-a['the_store_id'] = pd.Categorical(a['the_store_id'])
+a['the_store_id'] = a['the_store_id'].astype('category')
 fig4 = px.parallel_categories(a, dimensions=['meal_time', 'release_branch', 'escalated_ind'],
                 labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'})
 
