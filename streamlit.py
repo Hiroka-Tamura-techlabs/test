@@ -42,8 +42,8 @@ st.plotly_chart(fig4)
 
 
 slist = a['the_store_id_cat'].unique()
-store1 = st.sidebar.selectbox("Select store 1:",slist)
-store2 = st.sidebar.selectbox("Select store 2:",slist)
+store1 = st.selectbox("Select store 1:",slist)
+store2 = st.selectbox("Select store 2:",slist)
 fig5= px.parallel_categories(a[(a['the_store_id_cat']==store1) | (a['the_store_id_cat']==store2)], 
                              dimensions=['meal_time', 'release_branch', 'escalated_ind'],
                              labels={'meal_time':'Meal Time', 'release_branch':'Release Branch', 'escalated_ind':'Escalated or Not'},
