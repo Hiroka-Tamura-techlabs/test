@@ -5,7 +5,6 @@ import plotly.graph_objects as go
 import plotly.express as px
 import altair as alt
 from altair import datum
-import altair_catplot as altcat
 #from sqlalchemy import create_engine
 #from sqlalchemy import text
 #redshift_url = "{d}+{driver}://{u}:{p}@{h}:{port}/{db}".format(d='redshift',driver='psycopg2',u=st.secrets["username"],p=st.secrets["password"],h=st.secrets["host"],port=st.secrets["port"],db=st.secrets["dbname"])
