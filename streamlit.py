@@ -148,7 +148,7 @@ rules = alt.Chart(filtered_orders).mark_rule(color='gray').encode(
 # Put the five layers into a chart and bind the data
 total=alt.vconcat(alt.layer(
     line, cum_sum,selectors, points, rules, text, points2, text2, date_text
-), heatmap).properties(padding=15)
+), heatmap)
 
 
 st.altair_chart(total)
