@@ -12,12 +12,7 @@ import psycopg2
 # Uses st.experimental_singleton to only run once.
 
 def init_connection():
-    return psycopg2.connect(user = 'mc_datastaff',
-password = 'Bigmac2020',
-host = 'mcredshift.cvujfcoecsld.us-east-1.redshift.amazonaws.com',
-dbname = 'prod',
-port = 5439)
-  
+    return psycopg2.connect(**st.secrets["postgres"])
   
 @st.experimental_singleton
 conn = init_connection()
