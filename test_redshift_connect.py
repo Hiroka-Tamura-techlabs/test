@@ -10,11 +10,10 @@ import psycopg2
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
-
+@st.experimental_singleton
 def init_connection():
     return psycopg2.connect(**st.secrets["postgres"])
   
-@st.experimental_singleton
 conn = init_connection()
 
 # Perform query.
