@@ -10,7 +10,7 @@ import plotly.express as px
 #a = pd.read_sql_query(""" select the_store_id,business_date,meal_time,release_branch,escalation_type from pa_prod.quicksight_golden_arches ga
 #""",con=redshift_eng)
 
-#a=pd.read_csv('mock_store_escalation.csv')
+a=pd.read_csv('mock_store_escalation.csv')
 a1=a[(a['the_store_id']==23476) |(a['the_store_id']==7350)]
 a1['meal_time'].replace(['breakfast','lunch','snack','dinner','evening','late_night'],
                         [0,1,2,3,4,5], inplace=True)
