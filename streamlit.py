@@ -3,6 +3,9 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+import altair as alt
+from altair import datum
+import altair_catplot as altcat
 #from sqlalchemy import create_engine
 #from sqlalchemy import text
 #redshift_url = "{d}+{driver}://{u}:{p}@{h}:{port}/{db}".format(d='redshift',driver='psycopg2',u=st.secrets["username"],p=st.secrets["password"],h=st.secrets["host"],port=st.secrets["port"],db=st.secrets["dbname"])
@@ -48,6 +51,107 @@ fig5= px.parallel_categories(a[(a['the_store_id_cat']==store1) | (a['the_store_i
                              color='the_store_id')
 
 st.plotly_chart(fig5)
+
+
+
+heatmap=alt.Chart(
+    order_count,
+    title="Live Store Status"
+).mark_rect().encode(
+    x=alt.X('yearmonthdate(business_date):O', title='Business Date'),
+    y=alt.Y('store:O', title='Store ID'),
+    color=alt.condition("datum.the_chat_id == 0", alt.value('#3c3838'), 
+                        alt.Color('the_chat_id:Q', scale=alt.Scale(scheme="redyellowgreen"),
+                        legend=alt.Legend(title='Order Volume'))),
+    tooltip=[
+        alt.Tooltip('store:O', title='store ID'),
+        alt.Tooltip('yearmonthdate(business_date)', title='Date'),
+        alt.Tooltip('the_chat_id:Q', title='Orders')
+    ]
+).properties(width=800)
+
+filtered_orders['Legend']='Live Today'
+order_count['Legend']='Cumulative Live Stores'
+
+
+line = alt.Chart(filtered_orders).properties(width=800).mark_line().encode(
+    x=alt.X('yearmonthdate(business_date):O',title='Business Date'),
+    y=alt.Y('distinct(store):Q', title='Live Stores'),
+    color='Legend'
+)
+cum_sum=alt.Chart(order_count).properties(width=800).mark_line(strokeDash=[1,1]).encode(
+    x=alt.X('yearmonthdate(business_date):O'),
+    y='distinct(store):Q',
+    color='Legend'
+)
+
+labels = alt.Chart(filtered_orders).mark_text(dx=3,dy=-5,size=7).encode(
+                                            x=alt.X('yearmonthdate(business_date):O',sort="descending"),
+                                            y='distinct(store):Q',
+                                            text=alt.Text('distinct(store):Q'))
+                                        
+nearest = alt.selection(type='single', nearest=True, on='mouseover',
+                        fields=['business_date'], empty='none')
+
+# Transparent selectors across the chart. This is what tells us
+# the x-value of the cursor
+selectors = alt.Chart(filtered_orders).mark_point().encode(
+    x=alt.X('yearmonthdate(business_date):O'),
+    opacity=alt.value(0),
+).add_selection(
+    nearest
+)
+
+# Draw points on the line, and highlight based on selection
+points = line.mark_point().transform_filter(
+    nearest
+)
+
+# Draw text labels near the points, and highlight based on selection
+text = line.mark_text(align='left', dx=5, dy=7).encode(
+    text=alt.Text('distinct(store):Q'),
+    color=alt.value('#3c3838')
+).transform_filter(
+    nearest
+)
+
+# Draw text labels near the points, and highlight based on selection
+date_text = cum_sum.mark_text(align='left', dx=5, dy=-15).encode(
+    text=alt.Text('yearmonthdate(business_date):O'),
+    color=alt.value('#3c3838')
+).transform_filter(
+    nearest
+)
+
+# Draw points on the line, and highlight based on selection
+points2 = cum_sum.mark_point().transform_filter(
+    nearest
+)
+
+# Draw text labels near the points, and highlight based on selection
+text2 = cum_sum.mark_text(align='left', dx=5, dy=-5).encode(
+    text=alt.Text('distinct(store):Q'),
+    color=alt.value('#3c3838')
+).transform_filter(
+    nearest
+)
+
+# Draw a rule at the location of the selection
+rules = alt.Chart(filtered_orders).mark_rule(color='gray').encode(
+    x=alt.X('yearmonthdate(business_date):O'),
+).transform_filter(
+    nearest
+)
+
+# Put the five layers into a chart and bind the data
+total=alt.vconcat(alt.layer(
+    line, cum_sum,selectors, points, rules, text, points2, text2, date_text
+), heatmap).properties(padding=15)
+
+
+st.altair_chart(total)
+
+
 
 
 
