@@ -52,6 +52,9 @@ fig5= px.parallel_categories(a[(a['the_store_id_cat']==store1) | (a['the_store_i
 st.plotly_chart(fig5)
 
 
+order_count=pd.read_csv('order_count_jun29.csv')
+filtered_orders=pd.read_csv('order_count_jun29_filtered.csv')
+
 
 heatmap=alt.Chart(
     order_count,
