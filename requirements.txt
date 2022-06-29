@@ -2,5 +2,5 @@ pandas
 plotly
 altair
 #sqlalchemy
-#psycopg2-binary
+psycopg2-binary
 streamlit == 1.10.0
