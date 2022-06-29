@@ -5,28 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import altair as alt
 from altair import datum
-import psycopg2
-
-
-# Initialize connection.
-# Uses st.experimental_singleton to only run once.
-@st.experimental_singleton
-def init_connection():
-    return psycopg2.connect(**st.secrets["postgres"])
-
-conn = init_connection()
-
-# Perform query.
-# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
-@st.experimental_memo(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
-
-a = run_query("select the_store_id,business_date,meal_time,release_branch,escalation_type from pa_prod.quicksight_golden_arches;")
-
-#a=pd.read_csv('mock_store_escalation.csv')
+a=pd.read_csv('mock_store_escalation.csv')
 a1=a[(a['the_store_id']==23476) |(a['the_store_id']==7350)]
 a1['meal_time'].replace(['breakfast','lunch','snack','dinner','evening','late_night'],
                         [0,1,2,3,4,5], inplace=True)
