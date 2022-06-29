@@ -3,12 +3,12 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
-from sqlalchemy import create_engine
-from sqlalchemy import text
-redshift_url = "{d}+{driver}://{u}:{p}@{h}:{port}/{db}".format(d='redshift',driver='psycopg2',u=st.secrets["username"],p=st.secrets["password"],h=st.secrets["host"],port=st.secrets["port"],db=st.secrets["dbname"])
-redshift_eng = create_engine(redshift_url)
-a = pd.read_sql_query(""" select the_store_id,business_date,meal_time,release_branch,escalation_type from pa_prod.quicksight_golden_arches ga
-""",con=redshift_eng)
+#from sqlalchemy import create_engine
+#from sqlalchemy import text
+#redshift_url = "{d}+{driver}://{u}:{p}@{h}:{port}/{db}".format(d='redshift',driver='psycopg2',u=st.secrets["username"],p=st.secrets["password"],h=st.secrets["host"],port=st.secrets["port"],db=st.secrets["dbname"])
+#redshift_eng = create_engine(redshift_url)
+#a = pd.read_sql_query(""" select the_store_id,business_date,meal_time,release_branch,escalation_type from pa_prod.quicksight_golden_arches ga
+#""",con=redshift_eng)
 
 #a=pd.read_csv('mock_store_escalation.csv')
 a1=a[(a['the_store_id']==23476) |(a['the_store_id']==7350)]
