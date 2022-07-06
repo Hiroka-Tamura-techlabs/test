@@ -158,7 +158,7 @@ fig2 = px.parallel_coordinates(iris, color="species_id",
                               color_continuous_midpoint=2)
 #st.plotly_chart(fig2)
 
-df = pd.read_csv("https://raw.githubusercontent.com/bcdunbar/datasets/master/iris.csv")
+#df = pd.read_csv("https://raw.githubusercontent.com/bcdunbar/datasets/master/iris.csv")
 
 fig3 = go.Figure(data=
     go.Parcoords(
