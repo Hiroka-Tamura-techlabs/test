@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import altair as alt
 from altair import datum
+from bokeh.models import CustomJS, DateRangeSlider
 a=pd.read_csv('mock_store_escalation.csv')
 a1=a[(a['the_store_id']==23476) |(a['the_store_id']==7350)]
 a1['meal_time'].replace(['breakfast','lunch','snack','dinner','evening','late_night'],
@@ -159,6 +160,10 @@ fig2 = px.parallel_coordinates(iris, color="species_id",
 #st.plotly_chart(fig2)
 
 #df = pd.read_csv("https://raw.githubusercontent.com/bcdunbar/datasets/master/iris.csv")
+slider = DateRangeSlider(start=date(2016,1,1), end=date.today(), step=1, 
+         value=(date(2016,1,1),date(2016,2,1)), title='Date', width=1000)
+st.bokeh_chart(slider)
+
 
 fig3 = go.Figure(data=
     go.Parcoords(
