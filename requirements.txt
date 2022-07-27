@@ -3,4 +3,5 @@ plotly
 altair
 #sqlalchemy
 psycopg2-binary
+bokeh
 streamlit == 1.10.0
